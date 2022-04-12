@@ -7,42 +7,28 @@ import Paises from 'App/Models/Pais'
 export default class PaisController {
   public async index() {
     const paises = await Database.table('paises')
-    return {
-      message: 'paises listados',
-      paises: paises,
-    }
+    return paises
   }
   public async store({ request, response }: HttpContextContract) {
-    const body = request.body()
+    const body = request.only(['nom_pais'])
     const pais = await Paises.create(body)
     response.status(201)
-    return {
-      message: 'Pais Criado',
-      pais: pais,
-    }
+    return pais
   }
   public async show({ params }: HttpContextContract) {
     const pais = await Paises.findOrFail(params.id)
-    return {
-      pais: pais,
-    }
+    return pais
+  }
+  public async update({ params, request }: HttpContextContract) {
+    const pais = await Paises.findOrFail(params.id)
+    const body = request.only(['nom_pais'])
+    pais.merge(body)
+    await pais.save()
+    return pais
   }
   public async destroy({ params }: HttpContextContract) {
     const pais = await Paises.findOrFail(params.id)
     pais.delete()
-    return {
-      message: 'pais deletado',
-      pais: pais,
-    }
-  }
-  public async update({ params, request }: HttpContextContract) {
-    const body = request.body()
-    const pais = await Paises.findOrFail(params.id)
-    pais.nom_pais = body.nom_pais
-    pais.save()
-    return {
-      message: 'pais alterado',
-      pais: pais,
-    }
+    return pais
   }
 }
