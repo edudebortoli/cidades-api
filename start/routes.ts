@@ -34,13 +34,13 @@ Route.get('/api', async () => {
 
 Route.group(() => {
   Route.post('api/estados', 'EstadosController.store')
-  Route.put('api/estados/:id', 'EstadosController.update')
-  Route.delete('api/estados/:id', 'EstadosController.destroy')
   Route.post('api/paises', 'PaisesController.store')
-  Route.put('api/paises/:id', 'PaisesController.update')
-  Route.delete('api/paises/:id', 'PaisesController.destroy')
   Route.post('api/cidades', 'CidadesController.store')
-  Route.put('api/cidades/:id', 'CidadesController.update')
+  Route.patch('api/estados/:id', 'EstadosController.update')
+  Route.patch('api/paises/:id', 'PaisesController.update')
+  Route.patch('api/cidades/:id', 'CidadesController.update')
+  Route.delete('api/estados/:id', 'EstadosController.destroy')
+  Route.delete('api/paises/:id', 'PaisesController.destroy')
   Route.delete('api/cidades/:id', 'CidadesController.destroy')
 }).middleware('auth')
 
