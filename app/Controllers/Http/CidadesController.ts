@@ -1,9 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
-// import Database from '@ioc:Adonis/Lucid/Database'
 import Cidade from 'App/Models/Cidade'
 import Estado from 'App/Models/Estado'
-// import { PostgreConfig } from '@ioc:Adonis/Lucid/Database'
+import Paises from 'App/Models/Pais'
 
 export default class CidadesController {
   public async index() {
@@ -15,11 +14,14 @@ export default class CidadesController {
         'cidades.id_ibge',
         'estados.id_estado',
         'estados.nom_estado',
+        'paises.id_pais',
+        'paises.nom_pais',
         'cidades.created_at',
         'cidades.updated_at'
       )
       .from('cidades')
       .innerJoin('estados', 'cidades.id_estado', 'estados.id_estado')
+      .innerJoin('paises', 'cidades.id_pais', 'paises.id_pais')
     return {
       message: 'listando todas cidades',
       cidades: cidades,
@@ -64,6 +66,14 @@ export default class CidadesController {
     }
     if (body.id_estado) {
       cidade.id_estado = body.id_estado
+    }
+    if (body.id_pais) {
+      try {
+        Paises.findOrFail(body.id_pais)
+        cidade.id_pais = body.id_pais
+      } catch {
+        return { message: 'pais não existe' }
+      }
     }
     cidade.save()
     return {

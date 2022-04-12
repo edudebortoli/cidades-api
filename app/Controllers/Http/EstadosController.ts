@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
-// import Database from '@ioc:Adonis/Lucid/Database'
 
 import Estado from 'App/Models/Estado'
 
@@ -19,7 +18,7 @@ export default class EstadosController {
     response.status(201)
     return {
       message: 'Estado Criado',
-      data: estado,
+      estado: estado,
     }
   }
   public async show({ params }: HttpContextContract) {

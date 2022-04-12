@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Estado from './Estado'
 import Pais from './Pais'
-// import Estado from './Estado'
 
 export default class Cidade extends BaseModel {
   @column({ isPrimary: true })
