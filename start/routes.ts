@@ -34,3 +34,5 @@ Route.get('/api', async () => {
 Route.resource('/api/estados', 'EstadosController').apiOnly()
 Route.resource('/api/cidades', 'CidadesController').apiOnly()
 Route.resource('/api/paises', 'PaisesController').apiOnly()
+
+Route.post('/api/login', 'AuthController.login')
