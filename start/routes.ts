@@ -20,19 +20,36 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+//Route.where('id', /^[0-9]+$/)
+//É possivel definir um REGEX para autenticar os campos, ou fazer separadamente em cada rota
+//o Regex acima se descomentado irá validar TODOS os :id da aplicação e passar a aceitar apenas numeros [routing]
+
+// Legado
+// Route.resource('/api/estados', 'EstadosController').apiOnly()
+// Route.resource('/api/paises', 'PaisesController').apiOnly()
+// Route.resource('/api/cidades', 'CidadesController').apiOnly()
 Route.get('/api', async () => {
   return { hello: 'world' }
 })
 
-// Route.get('/api/estados', async () => {
-//   return { teste: 'oi' }
-// })
+Route.group(() => {
+  Route.post('api/estados', 'EstadosController.store')
+  Route.put('api/estados/:id', 'EstadosController.update')
+  Route.delete('api/estados/:id', 'EstadosController.destroy')
+  Route.post('api/paises', 'PaisesController.store')
+  Route.put('api/paises/:id', 'PaisesController.update')
+  Route.delete('api/paises/:id', 'PaisesController.destroy')
+  Route.post('api/cidades', 'CidadesController.store')
+  Route.put('api/cidades/:id', 'CidadesController.update')
+  Route.delete('api/cidades/:id', 'CidadesController.destroy')
+}).middleware('auth')
 
-// Route.get('/api/estado/:id', 'EstadosConstroller.index')
-// Route.get('/api/estados', 'estados')
-
-Route.resource('/api/estados', 'EstadosController').apiOnly()
-Route.resource('/api/cidades', 'CidadesController').apiOnly()
-Route.resource('/api/paises', 'PaisesController').apiOnly()
-
-Route.post('/api/login', 'AuthController.login')
+Route.group(() => {
+  Route.get('estados', 'EstadosController.index')
+  Route.get('estados/:id', 'EstadosController.show')
+  Route.get('paises', 'PaisesController.index')
+  Route.get('paises/:id', 'PaisesController.show')
+  Route.get('cidades', 'CidadesController.index')
+  Route.get('cidades/:id', 'CidadesController.show')
+  Route.post('login', 'AuthController.login')
+}).prefix('/api/')
