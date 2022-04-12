@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Cidade from './Cidade'
 
-export default class Pais extends BaseModel {
+export default class Paises extends BaseModel {
   @hasMany(() => Cidade, { foreignKey: 'id_pais' })
   public cidades: HasMany<typeof Cidade>
 

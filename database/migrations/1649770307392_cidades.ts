@@ -9,7 +9,7 @@ export default class Cidades extends BaseSchema {
       table.string('nom_cidade')
       table.integer('id_ibge')
       table.integer('id_estado').unsigned().references('estados.id_estado').onDelete('CASCADE') //se o estado for deletado, todas cidades irão tambem
-      table.integer('id_pais').unsigned().references('pais.id_pais').onDelete('CASCADE')
+      table.integer('id_pais').unsigned().references('paises.id_pais').onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
